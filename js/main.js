@@ -1,31 +1,49 @@
-let elemento = document.getElementById("matrix");
-let ctx = elemento.getContext("2d");
-let width = document.body.clientWidth;
-let height = document.body.clientHeight;
+let magicElement = document.getElementById("matrix");
+let magicContext = magicElement.getContext("2d");
+let width;
+let height;
+let position;
+let velocity;
 
-elemento.width = width;
-elemento.height = height;
+position = Array(300).join(0).split("");
 
-let posicion = Array(300).join(0).split("");
+function resizeScreem()
+{
+  width = document.body.clientWidth;
+  height = document.body.clientHeight;
+  magicElement.width = width;
+  magicElement.height = height;
+}
 
-function initMatrix() {
-  ctx.fillStyle = "rgba(0,20,1,0.5)";
-  ctx.fillRect(0, 0, width, height);
-  ctx.fillStyle = "rgba(0,255,0,1";
+function initMatrix()
+{
+  magicContext.fillStyle = "rgba(0,20,1,0.5)";
+  magicContext.fillRect(0, 0, width, height);
+  magicContext.fillStyle = "rgba(0,255,0,1";
 
-  ctx.font = "11pt arial";
+  magicContext.font = "1.5rem Arial";
 
-  posicion.map(function (y, index) {
+  position.map(function (y, index)
+  {
     let texto = String.fromCharCode(1e2 + Math.random() * 30);
     let x = index * 15 + 15;
 
     matrix.getContext("2d").fillText(texto, x, y);
-    if (y > 100 + Math.random() * 1e5) {
-      posicion[index] = 0;
-    } else {
-      posicion[index] = y + 15;
+    if (y > (100 + Math.random() * 1e5) )
+    {
+      position[index] = 0;
+    } 
+    else
+    {
+      position[index] = y +15;
     }
   });
 }
 
-setInterval(initMatrix, 50);
+resizeScreem();
+
+//to resposive devices
+window.addEventListener("resize",()=>{resizeScreem();});
+
+velocity=50;
+setInterval(initMatrix, velocity);
